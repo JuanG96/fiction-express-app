@@ -6,7 +6,6 @@ export default function Metrics({ metrics }) {
   if (!metrics) return null;
 
   useEffect(() => {
-    console.log({ metrics });
     const saveMetrics = async () => {
       await postMetrics(metrics);
     };
