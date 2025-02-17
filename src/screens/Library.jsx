@@ -1,4 +1,5 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useNavigation } from "@react-navigation/native";
 import React, { useContext, useEffect, useState } from "react";
 import {
   ActivityIndicator,
@@ -18,6 +19,7 @@ export default function Library() {
   const [books, setBooks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const navigation = useNavigation();
 
   useEffect(() => {
     const loadBooks = async () => {
@@ -59,7 +61,10 @@ export default function Library() {
   }
 
   const renderItem = ({ item }) => (
-    <TouchableOpacity style={styles.bookItem}>
+    <TouchableOpacity
+      style={styles.bookItem}
+      onPress={() => navigation.navigate("ReadBook", { book: item })}
+    >
       <Image source={BookImage} style={styles.bookImage} />
       <View style={styles.bookInfo}>
         <Text style={styles.bookTitle}>{item.title}</Text>
@@ -90,8 +95,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    display: 'flex',
-    flexDirection: 'column',
+    display: "flex",
+    flexDirection: "column",
     gap: 15,
   },
   containerCentered: {
